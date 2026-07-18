@@ -1,43 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>SAFEVOICE</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}SafeVoice — Anonymous Complaint System{% endblock %}
 
-<div class="center-page">
-
-    <div class="login-box">
-
-        <h2 style="text-align:center; margin-bottom:20px;">SAFEVOICE</h2>
-
-        <!-- STUDENT LOGIN -->
-        <div class="login-section">
-            <h3>Student Login</h3>
-            <input type="text" placeholder="Student ID">
-            <input type="password" placeholder="Password">
-
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span class="link">Forgot password?</span>
-                <button onclick="window.location.href='/student'">Log in</button>
-            </div>
-        </div>
-
-        <!-- ADMIN LOGIN -->
-        <div class="login-section" style="margin-top:25px;">
-            <h3>Admin Login</h3>
-            <input type="text" placeholder="Admin Username">
-            <input type="password" placeholder="Password">
-
-            <div style="display:flex; justify-content:flex-end;">
-                <button onclick="window.location.href='/admin'">Log in</button>
-            </div>
-        </div>
-
-    </div>
-
+{% block content %}
+<div class="hero">
+    <h1>SafeVoice</h1>
+    <p>A secure, anonymous complaint platform for your campus. Speak up safely —
+       your identity is never attached to your complaint.</p>
 </div>
 
-</body>
-</html>
+<div class="portal-grid">
+    <div class="portal-card">
+        <div class="portal-icon">🎓</div>
+        <h2>Students</h2>
+        <p>Register with your email, verify it, and submit complaints anonymously.</p>
+        <a class="btn" href="{{ url_for('student_login') }}">Student Login</a>
+        <a class="btn btn-outline" href="{{ url_for('student_register') }}">Register</a>
+    </div>
+
+    <div class="portal-card">
+        <div class="portal-icon">🛡️</div>
+        <h2>Administrators</h2>
+        <p>Authorized staff can view, track, update, and resolve complaints.</p>
+        <a class="btn" href="{{ url_for('admin_login') }}">Admin Login</a>
+    </div>
+</div>
+{% endblock %}

@@ -23,11 +23,18 @@ Python
 Flask Framework
 
 Database
-SQLite3
+SQLite (accessed through the SQLAlchemy ORM)
+
+Authentication & Security
+Separate student and admin login portals
+Email verification for student sign-up (Gmail SMTP)
+Hashed passwords (Werkzeug) and signed verification tokens (itsdangerous)
+Role-protected routes via Flask-Login
+Complaints are never linked to a user, so student identity stays anonymous
 
 Libraries & Modules
-Flask (Flask, render_template, request, redirect)
-SQLite3
+Flask, Flask-SQLAlchemy, Flask-Login, Flask-Mail
+python-dotenv (environment configuration)
 Random (for generating anonymous complaint IDs)
 OS (for file handling and uploads)
 
@@ -59,26 +66,47 @@ cd SafeVoice
 ### 3. Install dependencies
 
 ```bash
+python -m venv venv
+venv\Scripts\activate        # Windows  (use: source venv/bin/activate on macOS/Linux)
 pip install -r requirements.txt
 ```
 
-### 4. Run the application
+### 4. Configure environment variables
+
+Copy `.env.example` to `.env` and fill in the values:
+
+```bash
+copy .env.example .env       # Windows  (use: cp .env.example .env on macOS/Linux)
+```
+
+- `SECRET_KEY` — any long random string.
+- `MAIL_USERNAME` / `MAIL_PASSWORD` — a Gmail address and a 16-character Gmail
+  **App Password** (create one at https://myaccount.google.com/apppasswords).
+- `ADMIN_EMAIL` / `ADMIN_PASSWORD` — the administrator account, created
+  automatically the first time you run the app.
+
+### 5. Run the application
 
 ```bash
 python app.py
 ```
 
-### 5. Open in your browser
+### 6. Open in your browser
 
 ```
 http://127.0.0.1:5000
 ```
 
+Students register at `/student/register`, verify via the emailed link, then log
+in. Administrators log in at `/admin/login` with the credentials from `.env`.
+
 ---
-## 👨‍💻 Author
+## 👨‍💻 Developers
 
 **Dhruvi Verma**
 
 GitHub: https://github.com/dhruviverma226-alt
+
+**Krishna Kanoje**
 
 ---

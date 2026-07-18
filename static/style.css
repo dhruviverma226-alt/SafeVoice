@@ -1,0 +1,187 @@
+/* ===== GLOBAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #FFFFFF;
+    color: #001F3F;
+}
+
+/* ===== CENTER LOGIN ===== */
+.center-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* ===== LOGIN BOX ===== */
+.login-box {
+    width: 350px;
+    padding: 30px;
+}
+
+/* ===== INPUT ===== */
+input, textarea, select {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border-radius: 12px;
+    border: 2px solid #001F3F;
+    background: #FFFFFF;
+    color: #001F3F;
+    box-shadow: 2px 2px 5px rgba(0, 31, 63, 0.1);
+}
+
+input::placeholder, textarea::placeholder {
+    color: #6c757d;
+}
+
+/* ===== BUTTON ===== */
+button {
+    background: #001F3F;
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 2px 2px 8px rgba(0, 31, 63, 0.3);
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: #003366;
+}
+
+/* ===== FORGOT PASSWORD ===== */
+.link {
+    font-size: 14px;
+    color: #001F3F;
+    margin-top: 10px;
+}
+
+/* ===== DASHBOARD LAYOUT ===== */
+.main {
+    display: flex;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #001F3F;
+    padding: 20px;
+    box-shadow: 4px 0 10px rgba(0, 31, 63, 0.3);
+    color: #FFFFFF;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    color: #FFFFFF;
+}
+
+.sidebar a {
+    display: block;
+    margin: 15px 0;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.sidebar a:hover {
+    color: #A8BDD8;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+    background: #001F3F;
+    color: #FFFFFF;
+    padding: 15px 30px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* ===== CONTENT ===== */
+.content {
+    padding: 30px;
+    width: 100%;
+    background: #FFFFFF;
+}
+
+/* ===== CARDS ===== */
+.card {
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 31, 63, 0.1);
+    border: 1px solid #E9ECEF;
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding: 10px;
+    background: #F8F9FA;
+    color: #001F3F;
+    border-bottom: 2px solid #001F3F;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #DEE2E6;
+}
+
+/* ===== STATS ===== */
+.stats {
+    display: flex;
+    gap: 15px;
+}
+
+.stat-box {
+    flex: 1;
+    padding: 20px;
+    border-radius: 10px;
+    background: #F8F9FA;
+    box-shadow: 0 4px 10px rgba(0, 31, 63, 0.1);
+    text-align: center;
+    color: #001F3F;
+}
+
+.stat-box h3 {
+    color: #001F3F;
+    margin-bottom: 10px;
+}
+
+.stat-box i {
+    font-size: 32px;
+    color: #001F3F;
+    margin-bottom: 10px;
+}
+
+/* ===== CENTER CONTENT FOR STUDENT PAGE ===== */
+.page-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.page-box {
+    width: 500px;   /* controls width */
+    max-width: 90%;
+}
+
+/* ===== Icons in table headers ===== */
+th i {
+    margin-right: 8px;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SAFEVOICE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="center-page">
+
+    <div class="login-box">
+
+        <h2 style="text-align:center; margin-bottom:20px;">SAFEVOICE</h2>
+
+        <!-- STUDENT LOGIN -->
+        <div class="login-section">
+            <h3>Student Login</h3>
+            <input type="text" placeholder="Student ID">
+            <input type="password" placeholder="Password">
+
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="link">Forgot password?</span>
+                <button onclick="window.location.href='/student'">Log in</button>
+            </div>
+        </div>
+
+        <!-- ADMIN LOGIN -->
+        <div class="login-section" style="margin-top:25px;">
+            <h3>Admin Login</h3>
+            <input type="text" placeholder="Admin Username">
+            <input type="password" placeholder="Password">
+
+            <div style="display:flex; justify-content:flex-end;">
+                <button onclick="window.location.href='/admin'">Log in</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

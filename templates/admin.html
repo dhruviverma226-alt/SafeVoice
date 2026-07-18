@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<div class="main">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+    <h2><i class="fa-solid fa-shield-halved"></i> SAFEVOICE</h2>
+
+    <a href="#"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+    <a href="#"><i class="fa-solid fa-file-lines"></i> Complaints</a>
+    <a href="#"><i class="fa-solid fa-chart-pie"></i> Analytics</a>
+</div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <div class="topbar">Admin Dashboard</div>
+
+        <!-- Stats -->
+        <div class="stats">
+    <div class="stat-box">
+        <i class="fa-solid fa-list"></i>
+        <h3>Total</h3>
+        <p>{{ total }}</p>
+    </div>
+
+    <div class="stat-box">
+        <i class="fa-solid fa-clock"></i>
+        <h3>Pending</h3>
+        <p>{{ pending }}</p>
+    </div>
+
+    <div class="stat-box">
+        <i class="fa-solid fa-check-circle"></i>
+        <h3>Resolved</h3>
+        <p>{{ resolved }}</p>
+    </div>
+</div>
+
+        <!-- Chart -->
+        <div class="card">
+            <h3>Analytics</h3>
+            <div style="width:400px;">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="card">
+            <h3>All Complaints</h3>
+
+            <table>
+               <th><i class="fa-solid fa-id-card"></i> ID</th>
+               <th><i class="fa-solid fa-layer-group"></i> Category</th>
+               <th><i class="fa-solid fa-signal"></i> Status</th>
+               <th><i class="fa-solid fa-gear"></i> Action</th>
+
+                {% for c in complaints %}
+                <tr>
+                    <td>{{ c[1] }}</td>
+                    <td>{{ c[2] }}</td>
+                    <td>{{ c[6] }}</td>
+                    <td>
+                        <a href="/resolve/{{ c[0] }}">
+                            <button>Resolve</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Total', 'Pending', 'Resolved'],
+        datasets: [{
+            label: 'Complaints',
+            data: [{{ total }}, {{ pending }}, {{ resolved }}],
+        }]
+    },
+    options: {
+        maintainAspectRatio: false
+    }
+});
+</script>
+
+</body>
+</html>

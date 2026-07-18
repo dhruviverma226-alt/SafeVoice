@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard — SafeVoice{% endblock %}
+{% block head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Admin Dashboard</h1>
+
+<div class="stats">
+    <div class="stat-box">
+        <h3>Total</h3>
+        <p>{{ total }}</p>
+    </div>
+    <div class="stat-box">
+        <h3>Open</h3>
+        <p>{{ pending }}</p>
+    </div>
+    <div class="stat-box">
+        <h3>Resolved</h3>
+        <p>{{ resolved }}</p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Analytics</h3>
+    <div class="chart-wrap">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+<div class="card">
+    <h3>All Complaints</h3>
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tracking ID</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in complaints %}
+                <tr>
+                    <td>{{ c.complaint_id }}</td>
+                    <td>{{ c.category }}</td>
+                    <td class="desc">{{ c.description }}</td>
+                    <td><span class="badge">{{ c.status }}</span></td>
+                    <td>
+                        <form method="POST" action="{{ url_for('update_status', complaint_id=c.id) }}" class="inline-form">
+                            <select name="status">
+                                {% for stage in stages %}
+                                <option {% if stage == c.status %}selected{% endif %}>{{ stage }}</option>
+                                {% endfor %}
+                            </select>
+                            <button class="btn small" type="submit">Save</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="muted">No complaints yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+new Chart(document.getElementById('myChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Total', 'Open', 'Resolved'],
+        datasets: [{
+            label: 'Complaints',
+            data: [{{ total }}, {{ pending }}, {{ resolved }}],
+            backgroundColor: ['#001F3F', '#F4A261', '#2A9D8F']
+        }]
+    },
+    options: { maintainAspectRatio: false, plugins: { legend: { display: false } } }
+});
+</script>
+{% endblock %}

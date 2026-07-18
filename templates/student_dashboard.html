@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Student Dashboard — SafeVoice{% endblock %}
+
+{% block content %}
+<div class="dash-grid">
+    <div class="card">
+        <h2>Submit a Complaint</h2>
+        <p class="muted">Your identity is never stored with this complaint.</p>
+        <form method="POST" enctype="multipart/form-data">
+            <select name="category" required>
+                <option value="">Select Category</option>
+                <option>Academic</option>
+                <option>Infrastructure</option>
+                <option>Harassment</option>
+                <option>Ragging</option>
+                <option>Other</option>
+            </select>
+            <textarea name="description" placeholder="Describe your issue..." required></textarea>
+            <label>Upload Image (optional)</label>
+            <input type="file" name="image" accept="image/*">
+            <label>Upload Video (optional)</label>
+            <input type="file" name="video" accept="video/*">
+            <button class="btn full" type="submit">Submit Complaint</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>Track a Complaint</h2>
+        <p class="muted">Enter the tracking ID you received when submitting.</p>
+        <form method="POST" action="{{ url_for('track') }}">
+            <input type="text" name="complaint_id" placeholder="e.g. CMP123456" required>
+            <button class="btn full" type="submit">Track Status</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

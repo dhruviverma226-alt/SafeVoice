@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Admin Dashboard — SafeVoice{% endblock %}
+
 {% block head %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
@@ -7,79 +8,100 @@
 {% block content %}
 <h1 class="page-title">Admin Dashboard</h1>
 
-<div class="stats">
-    <div class="stat-box">
+<section class="stats-grid" aria-label="Complaint statistics">
+    <article class="stat-card total">
         <h3>Total</h3>
-        <p>{{ total }}</p>
-    </div>
-    <div class="stat-box">
+        <p class="value">{{ total }}</p>
+    </article>
+    <article class="stat-card open">
         <h3>Open</h3>
-        <p>{{ pending }}</p>
-    </div>
-    <div class="stat-box">
+        <p class="value">{{ pending }}</p>
+    </article>
+    <article class="stat-card resolved">
         <h3>Resolved</h3>
-        <p>{{ resolved }}</p>
-    </div>
-</div>
+        <p class="value">{{ resolved }}</p>
+    </article>
+</section>
 
-<div class="card">
-    <h3>Analytics</h3>
+<section class="card" aria-labelledby="analytics-heading">
+    <h3 id="analytics-heading">Analytics</h3>
     <div class="chart-wrap">
         <canvas id="myChart"></canvas>
     </div>
-</div>
+</section>
 
-<div class="card">
-    <h3>All Complaints</h3>
+<section class="card" aria-labelledby="complaints-heading">
+    <h3 id="complaints-heading">All Complaints</h3>
     <div class="table-scroll">
         <table>
             <thead>
                 <tr>
-                    <th>Tracking ID</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Update</th>
+                    <th scope="col">Tracking ID</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Update</th>
                 </tr>
             </thead>
             <tbody>
                 {% for c in complaints %}
                 <tr>
-                    <td>{{ c.complaint_id }}</td>
+                    <td><strong>{{ c.complaint_id }}</strong></td>
                     <td>{{ c.category }}</td>
-                    <td class="desc">{{ c.description }}</td>
-                    <td><span class="badge">{{ c.status }}</span></td>
+                    <td class="td-desc">{{ c.description }}</td>
+                    <td>
+                        <span class="badge badge-{{ c.status | lower | replace(' ', '-') | replace('_', '-') }}">
+                            {{ c.status }}
+                        </span>
+                    </td>
                     <td>
                         <form method="POST" action="{{ url_for('update_status', complaint_id=c.id) }}" class="inline-form">
-                            <select name="status">
+                            <label for="status-{{ c.id }}" class="sr-only">Update status</label>
+                            <select id="status-{{ c.id }}" name="status">
                                 {% for stage in stages %}
-                                <option {% if stage == c.status %}selected{% endif %}>{{ stage }}</option>
+                                <option value="{{ stage }}" {% if stage == c.status %}selected{% endif %}>{{ stage }}</option>
                                 {% endfor %}
                             </select>
-                            <button class="btn small" type="submit">Save</button>
+                            <button class="btn btn-teal btn-small" type="submit">Save</button>
                         </form>
                     </td>
                 </tr>
                 {% else %}
-                <tr><td colspan="5" class="muted">No complaints yet.</td></tr>
+                <tr>
+                    <td colspan="5" class="empty-state">No complaints yet.</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-</div>
+</section>
 
 <script>
-new Chart(document.getElementById('myChart'), {
-    type: 'bar',
-    data: {
-        labels: ['Total', 'Open', 'Resolved'],
-        datasets: [{
-            label: 'Complaints',
-            data: [{{ total }}, {{ pending }}, {{ resolved }}],
-            backgroundColor: ['#001F3F', '#F4A261', '#2A9D8F']
-        }]
-    },
-    options: { maintainAspectRatio: false, plugins: { legend: { display: false } } }
-});
+    new Chart(document.getElementById('myChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Total', 'Open', 'Resolved'],
+            datasets: [{
+                label: 'Complaints',
+                data: [{{ total }}, {{ pending }}, {{ resolved }}],
+                backgroundColor: ['#001F3F', '#F4A261', '#2A9D8F'],
+                borderRadius: 8,
+                borderSkipped: false
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 1 }
+                }
+            }
+        }
+    });
 </script>
 {% endblock %}

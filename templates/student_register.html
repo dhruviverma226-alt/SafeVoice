@@ -2,16 +2,26 @@
 {% block title %}Student Registration — SafeVoice{% endblock %}
 
 {% block content %}
-<div class="auth-box">
-    <h2>Create Student Account</h2>
-    <p class="muted">We'll send a verification link to your email.</p>
-    <form method="POST">
-        <input type="email" name="email" placeholder="Email address" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button class="btn full" type="submit">Register</button>
-    </form>
-    <p class="muted center">Already have an account?
-        <a href="{{ url_for('student_login') }}">Log in</a>
-    </p>
+<div class="auth-page">
+    <div class="auth-card">
+        <h2>Create Student Account</h2>
+        <p class="muted">We'll send a verification link to your email before you can log in.</p>
+
+        <form method="POST" action="{{ url_for('student_register') }}" novalidate>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="you@university.edu" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a secure password" required>
+            </div>
+            <button class="btn btn-teal btn-full" type="submit">Register</button>
+        </form>
+
+        <p class="muted center">Already have an account?
+            <a href="{{ url_for('student_login') }}">Log in</a>
+        </p>
+    </div>
 </div>
 {% endblock %}

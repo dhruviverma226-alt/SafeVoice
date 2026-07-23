@@ -2,35 +2,56 @@
 {% block title %}Student Dashboard — SafeVoice{% endblock %}
 
 {% block content %}
-<div class="dash-grid">
-    <div class="card">
-        <h2>Submit a Complaint</h2>
-        <p class="muted">Your identity is never stored with this complaint.</p>
-        <form method="POST" enctype="multipart/form-data">
-            <select name="category" required>
-                <option value="">Select Category</option>
-                <option>Academic</option>
-                <option>Infrastructure</option>
-                <option>Harassment</option>
-                <option>Ragging</option>
-                <option>Other</option>
-            </select>
-            <textarea name="description" placeholder="Describe your issue..." required></textarea>
-            <label>Upload Image (optional)</label>
-            <input type="file" name="image" accept="image/*">
-            <label>Upload Video (optional)</label>
-            <input type="file" name="video" accept="video/*">
-            <button class="btn full" type="submit">Submit Complaint</button>
-        </form>
-    </div>
+<h1 class="page-title">Student Dashboard</h1>
 
-    <div class="card">
-        <h2>Track a Complaint</h2>
-        <p class="muted">Enter the tracking ID you received when submitting.</p>
-        <form method="POST" action="{{ url_for('track') }}">
-            <input type="text" name="complaint_id" placeholder="e.g. CMP123456" required>
-            <button class="btn full" type="submit">Track Status</button>
+<div class="dash-grid">
+    <section class="card" aria-labelledby="submit-heading">
+        <h2 id="submit-heading">Submit a Complaint</h2>
+        <p class="muted">Your identity is never stored with this complaint. Attach images or video only if you feel comfortable.</p>
+
+        <form method="POST" action="{{ url_for('student_dashboard') }}" enctype="multipart/form-data" novalidate>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="Academic">Academic</option>
+                    <option value="Infrastructure">Infrastructure</option>
+                    <option value="Harassment">Harassment</option>
+                    <option value="Ragging">Ragging</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" placeholder="Describe your issue in as much detail as you feel comfortable sharing..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="image">Upload Image <span class="optional">(optional)</span></label>
+                <input type="file" id="image" name="image" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="video">Upload Video <span class="optional">(optional)</span></label>
+                <input type="file" id="video" name="video" accept="video/*">
+            </div>
+            <button class="btn btn-teal btn-full" type="submit">Submit Complaint</button>
         </form>
-    </div>
+    </section>
+
+    <section class="card" aria-labelledby="track-heading">
+        <h2 id="track-heading">Track a Complaint</h2>
+        <p class="muted">Enter the tracking ID you received when submitting your complaint.</p>
+
+        <form method="POST" action="{{ url_for('track') }}" novalidate>
+            <div class="form-group">
+                <label for="complaint_id">Complaint ID</label>
+                <input type="text" id="complaint_id" name="complaint_id" placeholder="e.g. CMP123456" required>
+            </div>
+            <button class="btn btn-primary btn-full" type="submit">Track Status</button>
+        </form>
+
+        <div class="form-note" style="margin-top: 24px;">
+            <strong>Tip:</strong> Keep your tracking ID safe. It is the only way to check your complaint status without logging in.
+        </div>
+    </section>
 </div>
 {% endblock %}

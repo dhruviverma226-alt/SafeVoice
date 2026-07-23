@@ -1,27 +1,103 @@
 {% extends "base.html" %}
-{% block title %}SafeVoice — Anonymous Complaint System{% endblock %}
+{% block title %}SafeVoice — Anonymous Campus Complaint System{% endblock %}
 
 {% block content %}
-<div class="hero">
-    <h1>SafeVoice</h1>
-    <p>A secure, anonymous complaint platform for your campus. Speak up safely —
-       your identity is never attached to your complaint.</p>
-</div>
-
-<div class="portal-grid">
-    <div class="portal-card">
-        <div class="portal-icon">🎓</div>
-        <h2>Students</h2>
-        <p>Register with your email, verify it, and submit complaints anonymously.</p>
-        <a class="btn" href="{{ url_for('student_login') }}">Student Login</a>
-        <a class="btn btn-outline" href="{{ url_for('student_register') }}">Register</a>
+<section class="hero hero-grand" aria-label="Welcome">
+    <div class="hero-aurora" aria-hidden="true">
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
     </div>
 
-    <div class="portal-card">
-        <div class="portal-icon">🛡️</div>
-        <h2>Administrators</h2>
-        <p>Authorized staff can view, track, update, and resolve complaints.</p>
-        <a class="btn" href="{{ url_for('admin_login') }}">Admin Login</a>
+    <div class="hero-floaters" aria-hidden="true">
+        <span class="floater floater-1">🔐 Encrypted</span>
+        <span class="floater floater-2">🛡️ Anonymous</span>
+        <span class="floater floater-3">📋 Trackable</span>
     </div>
-</div>
+
+    <div class="hero-content">
+        <span class="hero-tag">Anonymous &amp; Secure Campus Reporting</span>
+        <h1>
+            Speak Up.
+            <span class="hero-line">Stay Safe.</span>
+            <span class="hero-line hero-line--muted">Be Heard.</span>
+        </h1>
+        <p class="hero-lead">
+            SafeVoice is a secure, anonymous harbor for campus concerns. Your identity is never attached to your complaint — so you can report with confidence.
+        </p>
+        <div class="hero-actions">
+            <a class="btn btn-teal btn-large" href="{{ url_for('student_register') }}">
+                <span aria-hidden="true">📝</span> File a Report
+            </a>
+            <a class="btn btn-outline btn-large btn-outline-light" href="{{ url_for('student_login') }}">
+                Track a Complaint
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="portal-section" aria-labelledby="portals-heading">
+    <div class="section-header">
+        <h2 id="portals-heading" class="section-title">Choose Your Portal</h2>
+        <p class="section-subtitle">Students stay anonymous. Admins manage reports securely.</p>
+    </div>
+
+    <div class="portal-grid">
+        <article class="portal-card students">
+            <div class="portal-icon" aria-hidden="true">🎓</div>
+            <h2>Students</h2>
+            <p>Register with your email, verify it, and submit complaints anonymously. Track progress with your unique complaint ID.</p>
+            <div class="portal-actions">
+                <a class="btn btn-primary" href="{{ url_for('student_login') }}">Student Login</a>
+                <a class="btn btn-outline" href="{{ url_for('student_register') }}">Register</a>
+            </div>
+        </article>
+
+        <article class="portal-card admin">
+            <div class="portal-icon" aria-hidden="true">🛡️</div>
+            <h2>Administrators</h2>
+            <p>Authorized personnel can view, track, update, and resolve complaints through the secure admin dashboard.</p>
+            <div class="portal-actions">
+                <a class="btn btn-primary" href="{{ url_for('admin_login') }}">Admin Login</a>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="trust-section" aria-labelledby="trust-heading">
+    <div class="section-header">
+        <h2 id="trust-heading" class="section-title">Built for Trust</h2>
+        <p class="section-subtitle">We designed SafeVoice to protect the people who use it.</p>
+    </div>
+    <div class="trust-grid">
+        <div class="trust-item">
+            <div class="trust-icon" aria-hidden="true">👁️‍🗨️</div>
+            <div>
+                <h3>Zero Identity Tracking</h3>
+                <p>Your complaint is stored without any link to your email, IP, or device.</p>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon" aria-hidden="true">🔐</div>
+            <div>
+                <h3>Secure by Default</h3>
+                <p>All submissions are handled over encrypted channels and stored safely.</p>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon" aria-hidden="true">📋</div>
+            <div>
+                <h3>Track Every Report</h3>
+                <p>Use your tracking ID to follow status updates without revealing who you are.</p>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon" aria-hidden="true">✅</div>
+            <div>
+                <h3>Accountability</h3>
+                <p>Admins can update statuses and ensure every report is reviewed.</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
